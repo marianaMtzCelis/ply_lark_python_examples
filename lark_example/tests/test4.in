@@ -1,0 +1,8 @@
+program hola;
+{
+    if(a) {
+        a = b;
+    } else {
+        a = c;
+    };
+} 

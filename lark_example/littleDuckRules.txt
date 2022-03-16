@@ -1,0 +1,88 @@
+// Tokens
+ID: /[a-zA-Z_][a-zA-Z_0-9]*/
+PUNTOYCOMA: ";"
+COMA: /,/
+DOSPUNTOS: /:/
+LLAVEABRE: /{/
+LLAVECIERRA: /}/
+IGUAL: /=/
+MAYORQUE: />/
+MENORQUE: /</
+NOIGUAL: /<>/
+PARENTESISABRE: /\(/
+PARENTESISCIERRA: /\)/
+MAS: /\+/
+MENOS: /-/
+MULTIPLICACION: /\*/
+DIVISION: /\//
+
+// Reserved words
+PROGRAM: "program"
+VAR: "var"
+INT: "int"
+FLOAT: "float"
+PRINT: "print"
+CTESTRING: "ctestring"
+IF: "if"
+ELSE: "else"
+CTEL: "ctel"
+CTEF: "ctef"
+
+// Ignore words
+LINEABLANCA: /\n+/
+ESPACIOBLANCO: (" " | /\t/ )+
+%ignore LINEABLANCA
+%ignore ESPACIOBLANCO
+
+// Rules
+start: programa
+
+programa: PROGRAM ID PUNTOYCOMA programap bloque
+
+programap: vars |
+
+vars: VAR varsp
+
+varsp: ID varp DOSPUNTOS tipo PUNTOYCOMA varspp
+
+varspp: varsp |
+
+varp: COMA ID varp |
+
+tipo: INT | FLOAT
+
+bloque: LLAVEABRE bloquep LLAVECIERRA
+
+bloquep: estatuto bloquep |
+
+estatuto: asignacion | condicion | escritura
+
+asignacion: ID IGUAL expresion PUNTOYCOMA
+
+expresion: exp expresionp
+
+expresionp: MAYORQUE exp | MENORQUE exp | NOIGUAL exp | 
+
+escritura: PRINT PARENTESISABRE escriturap PARENTESISCIERRA PUNTOYCOMA
+
+escriturap: expresion escriturapp | CTESTRING escriturapp
+
+escriturapp: escriturap |
+
+condicion: IF PARENTESISABRE expresion PARENTESISCIERRA bloque condicionp PUNTOYCOMA
+
+condicionp: ELSE bloque | 
+
+exp: termino expp
+
+expp: MAS exp | MENOS exp |
+
+termino: factor terminop
+
+terminop: MULTIPLICACION termino | DIVISION termino | 
+
+factor: PARENTESISABRE expresion PARENTESISCIERRA | factorp varcte
+
+factorp: MAS | MENOS | 
+
+varcte: ID | CTEL | CTEF

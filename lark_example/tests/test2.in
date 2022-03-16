@@ -1,0 +1,2 @@
+program a;
+var x, y : float; k, l: int; {}

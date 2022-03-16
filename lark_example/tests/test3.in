@@ -1,0 +1,5 @@
+program marianis123;
+var a1, a2 : int;
+{
+    print(ctestring);
+}

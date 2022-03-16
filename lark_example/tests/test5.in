@@ -1,0 +1,5 @@
+program abc< {
+    if(b) {
+        b = c
+    }
+}
